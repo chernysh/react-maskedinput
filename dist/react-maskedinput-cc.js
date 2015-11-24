@@ -1,5 +1,5 @@
 /*!
- * react-maskedinput 3.0.0 - https://github.com/insin/react-maskedinput
+ * react-maskedinput-cc 3.0.0 - https://github.com/insin/react-maskedinput
  * MIT Licensed
  */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.MaskedInput = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
@@ -48,6 +48,9 @@ var MaskedInput = React.createClass({displayName: "MaskedInput",
   },
 
   componentWillReceiveProps:function(nextProps) {
+    if (nextProps.value && nextProps.value !== this.mask.value) {
+      this.mask.setValue(nextProps.value);
+    }
     if (this.props.mask !== nextProps.mask) {
       this.mask.setPattern(nextProps.mask, {value: this.mask.getRawValue()})
     }
@@ -158,14 +161,14 @@ var MaskedInput = React.createClass({displayName: "MaskedInput",
     var $__0=      this.props,mask=$__0.mask,formatCharacters=$__0.formatCharacters,size=$__0.size,placeholder=$__0.placeholder,props=(function(source, exclusion) {var rest = {};var hasOwn = Object.prototype.hasOwnProperty;if (source == null) {throw new TypeError();}for (var key in source) {if (hasOwn.call(source, key) && !hasOwn.call(exclusion, key)) {rest[key] = source[key];}}return rest;})($__0,{mask:1,formatCharacters:1,size:1,placeholder:1})
     var patternLength = this.mask.pattern.length
     return React.createElement("input", React.__spread({},  props, 
-      {ref: function(r)  {return this.input = r;}.bind(this), 
-      maxLength: patternLength, 
-      onChange: this._onChange, 
-      onKeyDown: this._onKeyDown, 
-      onKeyPress: this._onKeyPress, 
-      onPaste: this._onPaste, 
-      placeholder: placeholder || this.mask.emptyValue, 
-      size: size || patternLength, 
+      {ref: function(r)  {return this.input = r;}.bind(this),
+      maxLength: patternLength,
+      onChange: this._onChange,
+      onKeyDown: this._onKeyDown,
+      onKeyPress: this._onKeyPress,
+      onPaste: this._onPaste,
+      placeholder: placeholder || this.mask.emptyValue,
+      size: size || patternLength,
       value: this._getDisplayValue()})
     )
   }

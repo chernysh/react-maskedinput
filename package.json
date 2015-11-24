@@ -1,10 +1,10 @@
 {
-  "name": "react-maskedinput",
-  "description": "Masked <input/> React component",
+  "name": "react-maskedinput-cc",
+  "description": "Masked <input/> React component with several fixes",
   "version": "3.0.0",
   "main": "./lib/index.js",
   "standalone": "MaskedInput",
-  "homepage": "https://github.com/insin/react-maskedinput",
+  "homepage": "https://github.com/chernysh/react-maskedinput-cc",
   "license": "MIT",
   "author": "Jonny Buchanan <jonathan.buchanan@gmail.com>",
   "keywords": [
@@ -48,6 +48,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/insin/react-maskedinput.git"
+    "url": "http://github.com/chernysh/react-maskedinput-cc.git"
   }
 }
