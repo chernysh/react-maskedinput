@@ -1,3 +1,5 @@
+'use strict';
+
 var React = require('react')
 var {getSelection, setSelection} = require('react/lib/ReactInputSelection')
 
@@ -21,7 +23,7 @@ var MaskedInput = React.createClass({
     formatCharacters: React.PropTypes.object,
     placeholderChar: React.PropTypes.string
   },
-
+  keyPressDetected:false,
   getDefaultProps() {
     return {
       value: ''
@@ -41,13 +43,8 @@ var MaskedInput = React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
-<<<<<<< HEAD:src/index.jsx
-    if (nextProps.value && nextProps.value !== this.mask.value) {
-      this.mask.setValue(nextProps.value);
-=======
     if (this.props.value !== nextProps.value) {
       this.mask.setValue(nextProps.value)
->>>>>>> 6a5f75d7684f4b7f74f86be02435316da54e92b7:src/index.js
     }
     if (this.props.mask !== nextProps.mask) {
       this.mask.setPattern(nextProps.mask, {value: this.mask.getRawValue()})
@@ -64,9 +61,12 @@ var MaskedInput = React.createClass({
 
   _onChange(e) {
     // console.log('onChange', JSON.stringify(getSelection(this.input)), e.target.value)
-
+    if(!this.keyPressDetected && this.props.onKeypressDetectionFailed){
+      this.props.onKeypressDetectionFailed(e.target.value);
+      return;
+    }
     var maskValue = this.mask.getValue()
-    if (e.target.value !== maskValue) {
+    if (e.target.value != maskValue) {
       // Cut or delete operations will have shortened the value
       if (e.target.value.length < maskValue.length) {
         var sizeDiff = maskValue.length - e.target.value.length
@@ -107,7 +107,7 @@ var MaskedInput = React.createClass({
       return
     }
 
-    if (e.key === 'Backspace') {
+    if (e.key == 'Backspace') {
       e.preventDefault()
       this._updateMaskSelection()
       if (this.mask.backspace()) {
@@ -123,10 +123,10 @@ var MaskedInput = React.createClass({
 
   _onKeyPress(e) {
     // console.log('onKeyPress', JSON.stringify(getSelection(this.input)), e.key, e.target.value)
-
+    this.keyPressDetected=true
     // Ignore modified key presses
     // Ignore enter key to allow form submission
-    if (e.metaKey || e.altKey || e.ctrlKey || e.key === 'Enter') { return }
+    if (e.metaKey || e.altKey || e.ctrlKey || e.key == 'Enter') { return }
 
     e.preventDefault()
     this._updateMaskSelection()
