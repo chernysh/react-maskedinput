@@ -1,67 +1,18 @@
-<!DOCTYPE html>
-<head>
-  <meta charset="UTF-8">
-  <title>react-maskedinput Demo</title>
-  <script src="http://fb.me/react-0.14.0.js"></script>
-  <script src="http://fb.me/react-dom-0.14.0.js"></script>
-  <script src="http://fb.me/JSXTransformer-0.13.3.js"></script>
-  <script src="../dist/react-maskedinput.js"></script>
-  <style>
-  body {
-    box-sizing: border-box;
-    width: 550px;
-    margin: 1em auto;
-    padding: 0 1em;
-    font-family: sans-serif;
-  }
-  code {
-    font-size: 1.3em;
-  }
-  h1 {
-    font-size: 3em;
-    text-align: center;
-    margin-top: 0;
-  }
-  p.lead {
-    font-weight: bold;
-    text-align: center;
-  }
-  hr {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    border: 0;
-    border-top: 1px solid #222;
-  }
-  .form-field {
-    margin-bottom: .5em;
-  }
-  label {
-    display: inline-block;
-    width: 7em;
-    text-align: right;
-    margin-right: .75em;
-  }
-  input {
-    border: none;
-    font-size: 1.5em;
-  }
-  footer {
-    text-align: center;
-  }
-  </style>
-</head>
-<body>
-<div id="app"></div>
-<script type="text/jsx;harmony=true">void function() { 'use strict'
+import './style.css'
 
-var PATTERNS = [
+import React from 'react'
+import {render} from 'react-dom'
+
+import MaskedInput from '../../src'
+
+const PATTERNS = [
   '1111 1111',
   '111 111',
   '11 11',
   '1 1'
 ]
 
-var App = React.createClass({
+const App = React.createClass({
   getInitialState() {
     return {
       card: '',
@@ -77,7 +28,7 @@ var App = React.createClass({
   },
 
   _onChange(e) {
-    var stateChange = {}
+    const stateChange = {}
     stateChange[e.target.name] = e.target.value
     this.setState(stateChange)
   },
@@ -88,11 +39,18 @@ var App = React.createClass({
 
   render() {
     return <div className="App">
-      <h1><code>&lt;<a href="https://github.com/insin/react-maskedinput">MaskedInput</a>/&gt;</code></h1>
+      <h1>
+        <code>&lt;<a href="https://github.com/insin/react-maskedinput">MaskedInput</a>/&gt;</code>
+      </h1>
       <p className="lead">A React component which creates a masked <code>&lt;input/&gt;</code></p>
       <div className="form-field">
         <label htmlFor="card">Card Number:</label>
-        <MaskedInput mask="1111 1111 1111 1111" name="card" id="card" size="20" onChange={this._onChange}/>
+        <MaskedInput mask="1111 1111 1111 1111" name="card" id="card" size="20" value={this.state.card} onChange={this._onChange}/>
+      </div>
+      <p>You can even externally update the card state like a standard input element:</p>
+      <div className="form-field">
+        <label htmlFor="card">Externally Update:</label>
+        <input onChange={this._onChange} name="card" maxLength="16" style={{borderBottom: '1px solid #999'}} />
       </div>
       <p>Placeholders are automatically generated but can be overridden with your own:</p>
       <div className="form-field">
@@ -125,7 +83,7 @@ var App = React.createClass({
       <div className="form-field">
         <label htmlFor="pattern">Pattern:</label>
         <select onChange={this._changePattern}>
-          {PATTERNS.map(pattern => <option value={pattern}>{pattern}</option>)}
+          {PATTERNS.map(pattern => <option value={pattern} key={pattern}>{pattern}</option>)}
         </select>
       </div>
       <p>Custom format character (W=[a-zA-Z0-9_], transformed to uppercase) and placeholder character (en space):</p>
@@ -141,7 +99,7 @@ var App = React.createClass({
   }
 })
 
-var CustomInput = React.createClass({
+const CustomInput = React.createClass({
   render() {
     return <MaskedInput
       mask="1111-WW-11"
@@ -151,7 +109,7 @@ var CustomInput = React.createClass({
       {...this.props}
       formatCharacters={{
         'W': {
-          validate(char) { return /\w/.test(char ) },
+          validate(char) { return /\w/.test(char) },
           transform(char) { return char.toUpperCase() }
         }
       }
@@ -159,7 +117,4 @@ var CustomInput = React.createClass({
   }
 })
 
-ReactDOM.render(<App/>, document.getElementById('app'))
-
-}()</script>
-</body>
+render(<App/>, document.getElementById('demo'))

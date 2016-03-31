@@ -2,6 +2,8 @@
 
 A [React](http://facebook.github.io/react/) component for `<input>` masking, built on top of [inputmask-core](https://github.com/insin/inputmask-core).
 
+![This project has never been used by its author, other than while making it.](https://img.shields.io/badge/author--usage-never-red.png "This project has never been used by its author, other than while making it")
+
 ## [Live Demo](http://insin.github.io/react-maskedinput/)
 
 ## Install
@@ -18,7 +20,8 @@ npm install react-maskedinput --save
 
 The browser bundle exposes a global `MaskedInput` variable and expects to find a global `React` (>= 0.14.0) variable to work with.
 
-You can find it in the [/dist directory](https://github.com/insin/react-maskedinput/tree/master/dist).
+* [react-maskedinput.js](https://npmcdn.com/react-maskedinput/umd/react-maskedinput.js) (development version)
+* [react-maskedinput.min.js](https://npmcdn.com/react-maskedinput/umd/react-maskedinput.min.js) (compressed production version)
 
 ## Usage
 
